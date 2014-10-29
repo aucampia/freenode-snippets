@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <memory>
+#include <cassert>
 
 namespace nester {
 
@@ -21,12 +22,14 @@ private:
 		}
 		node* append_node()
 		{
+			assert( !next );
 			return ( this->next = std::unique_ptr< node >( new node() ) ).get();
 		}
-		node* next_node()
+		node* next_node() const
 		{
 			return this->next.get();
 		}
+
 		const T& get_value() const
 		{
 			return value;
@@ -35,6 +38,7 @@ private:
 		{
 			this->value = value;
 		}
+
 	private:
 		T value;
 		std::unique_ptr< node > next;
@@ -92,8 +96,9 @@ std::ostream& operator << ( std::ostream& out, const linked_list< T >& in )
 int main()
 {
 	nester::linked_list< int > list;
-	list.insert( 1 );
-	list.insert( 2 );
-	list.insert( 3 );
+	for ( int i = 0; i < 100; i++ )
+	{
+		list.insert( i );
+	}
 	std::cout << list << std::endl;
 }
