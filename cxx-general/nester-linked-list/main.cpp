@@ -38,7 +38,7 @@ private:
 		{
 			return this->m_value;
 		}
-		const T& set_value( const T& value )
+		void set_value( const T& value )
 		{
 			this->m_value = value;
 		}
@@ -50,8 +50,8 @@ private:
 public:
 	linked_list()
 		:
-			m_size( 0 ),
-			m_back( NULL )
+			m_back( NULL ),
+			m_size( 0 )
 	{
 		
 	}
@@ -98,6 +98,7 @@ public:
 			out << tmp->get_value();
 		}
 		out << " ]";
+		return out;
 	}
 private:
 	node& append_node()
